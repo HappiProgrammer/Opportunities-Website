@@ -24,22 +24,22 @@ export default function Navbar({
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 w-full backdrop-blur-xl bg-slate-950/80 border-b border-slate-800/80 transition-all duration-200">
+    <header className="sticky top-0 z-40 w-full backdrop-blur-xl bg-[#0b1220]/85 border-b border-[#23314a]/80 transition-all duration-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-20">
           {/* Brand / Logo */}
           <div className="flex items-center gap-3 cursor-pointer" onClick={() => onSelectCategory('All')}>
-            <div className="relative flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-tr from-indigo-600 via-violet-600 to-cyan-400 p-[1px] shadow-lg shadow-indigo-500/25">
-              <div className="w-full h-full bg-slate-950 rounded-[11px] flex items-center justify-center">
-                <Compass className="w-5 h-5 sm:w-6 sm:h-6 text-cyan-400 animate-pulse" />
+            <div className="relative flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-tr from-[#4d68d7] via-[#6f8cff] to-[#9ad0ff] p-[1px] shadow-lg shadow-[#4d68d7]/20">
+              <div className="w-full h-full bg-[#0b1220] rounded-[11px] flex items-center justify-center">
+                <Compass className="w-5 h-5 sm:w-6 sm:h-6 text-[#9bb6ff] animate-pulse" />
               </div>
             </div>
             <div>
               <div className="flex items-center gap-1.5">
                 <span className="text-xl sm:text-2xl font-black tracking-tight text-white font-sans">
-                  Oppor<span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-purple-300 to-cyan-400">Sphere</span>
+                  Oppor<span className="text-transparent bg-clip-text bg-gradient-to-r from-[#bfd3ff] via-[#a6c3ff] to-[#7cc7e9]">Sphere</span>
                 </span>
-                <span className="hidden sm:inline-flex items-center px-2 py-0.5 text-[10px] font-semibold tracking-wider uppercase text-cyan-300 bg-cyan-950/60 border border-cyan-800/50 rounded-full">
+                <span className="hidden sm:inline-flex items-center px-2 py-0.5 text-[10px] font-semibold tracking-wider uppercase text-[#bfdbff] bg-[#182d4b]/80 border border-[#4063a9]/60 rounded-full">
                   Global
                 </span>
               </div>

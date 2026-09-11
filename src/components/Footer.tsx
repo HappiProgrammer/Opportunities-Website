@@ -16,19 +16,19 @@ export default function Footer({
   onOpenNewsletter
 }: FooterProps) {
   return (
-    <footer className="w-full bg-slate-950 border-t border-slate-800/80 pt-16 pb-12 text-slate-400 text-sm">
+    <footer className="w-full bg-[#0b1220] border-t border-[#23314a]/80 pt-16 pb-12 text-slate-400 text-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-slate-800/80">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-[#23314a]/80">
           {/* Col 1: Brand */}
           <div className="md:col-span-1 space-y-4">
             <div className="flex items-center gap-2.5">
-              <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-tr from-violet-600 via-purple-600 to-cyan-400 p-[1px]">
-                <div className="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
-                  <Compass className="w-5 h-5 text-cyan-400" />
+              <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-tr from-[#4d68d7] via-[#6f8cff] to-[#9ad0ff] p-[1px]">
+                <div className="w-full h-full bg-[#0b1220] rounded-[10px] flex items-center justify-center">
+                  <Compass className="w-5 h-5 text-[#9bb6ff]" />
                 </div>
               </div>
               <span className="text-xl font-bold text-white tracking-tight">
-                Oppor<span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-cyan-400">Sphere</span>
+                Oppor<span className="text-transparent bg-clip-text bg-gradient-to-r from-[#bfd3ff] to-[#7cc7e9]">Sphere</span>
               </span>
             </div>
             <p className="text-xs text-slate-400 leading-relaxed">

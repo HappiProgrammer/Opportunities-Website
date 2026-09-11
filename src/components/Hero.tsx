@@ -19,25 +19,25 @@ export default function Hero({
   const trendingTags = ['Fully Funded', 'AI & DeepTech', 'Remote', 'GSoC 2026', 'Oxford', 'Equity Free', 'Undergraduate'];
 
   return (
-    <div className="relative overflow-hidden pt-8 pb-12 sm:pt-14 sm:pb-16 bg-gradient-to-b from-slate-950 via-slate-900/60 to-slate-950">
+    <div className="relative overflow-hidden pt-8 pb-12 sm:pt-14 sm:pb-16 bg-gradient-to-b from-[#0b1220] via-[#111d2f] to-[#0b1220]">
       {/* Decorative background glow rings */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 pointer-events-none overflow-hidden opacity-30">
-        <div className="absolute -top-32 left-1/4 w-96 h-96 bg-violet-600/30 rounded-full blur-3xl" />
-        <div className="absolute -top-20 right-1/4 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl" />
-        <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[600px] h-64 bg-indigo-500/20 rounded-full blur-3xl" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 pointer-events-none overflow-hidden opacity-35">
+        <div className="absolute -top-32 left-1/4 w-96 h-96 bg-[#5b7cff]/20 rounded-full blur-3xl" />
+        <div className="absolute -top-20 right-1/4 w-96 h-96 bg-[#8fb3ff]/10 rounded-full blur-3xl" />
+        <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[600px] h-64 bg-[#2c4478]/20 rounded-full blur-3xl" />
       </div>
 
       <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         {/* Floating Announcement Tag */}
-        <div className="inline-flex items-center gap-2 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full bg-violet-950/60 border border-violet-700/40 text-violet-300 text-xs sm:text-sm font-medium mb-6 backdrop-blur-md shadow-sm animate-pulse">
-          <Sparkles className="w-3.5 h-3.5 text-violet-400" />
+        <div className="inline-flex items-center gap-2 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full bg-[#1d2d47] border border-[#4e6ba8]/40 text-[#cfe0ff] text-xs sm:text-sm font-medium mb-6 backdrop-blur-md shadow-sm animate-pulse">
+          <Sparkles className="w-3.5 h-3.5 text-[#8ea9ff]" />
           <span>Fall & Spring 2026-2027 Cohorts Now Accepting Applications</span>
         </div>
 
         {/* Hero Title */}
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white tracking-tight leading-[1.15] mb-6">
           Find Your Next Breakthrough{' '}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-purple-300 to-cyan-400">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#9bb6ff] via-[#dfe9ff] to-[#7fc8ff]">
             Opportunity
           </span>
         </h1>
@@ -50,9 +50,9 @@ export default function Hero({
         {/* Centered Search Bar */}
         <div className="max-w-2xl mx-auto mb-6">
           <div className="relative group">
-            <div className="absolute -inset-0.5 bg-gradient-to-r from-violet-600 to-cyan-500 rounded-2xl blur opacity-30 group-hover:opacity-60 transition duration-300"></div>
-            <div className="relative flex items-center bg-slate-900/90 border border-slate-700/80 rounded-2xl p-1.5 shadow-2xl backdrop-blur-xl">
-              <Search className="w-5 h-5 ml-3.5 text-slate-400 group-focus-within:text-cyan-400 transition-colors" />
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-[#5b7cff] to-[#7cc7e9] rounded-2xl blur opacity-20 group-hover:opacity-35 transition duration-300"></div>
+            <div className="relative flex items-center bg-[#121d2c]/90 border border-[#2d3f5e]/80 rounded-2xl p-1.5 shadow-2xl backdrop-blur-xl">
+              <Search className="w-5 h-5 ml-3.5 text-slate-400 group-focus-within:text-[#8ea9ff] transition-colors" />
               <input
                 type="text"
                 value={searchQuery}

@@ -272,7 +272,7 @@ export default function Home() {
   }, [opportunities, filterState, bookmarkedIds]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-950 text-slate-100 selection:bg-violet-600 selection:text-white">
+    <div className="min-h-screen flex flex-col bg-[#0b1220] text-slate-100 selection:bg-[#5b7cff] selection:text-white">
       {/* Top Navigation */}
       <Navbar
         savedCount={isClient ? bookmarkedIds.length : 0}

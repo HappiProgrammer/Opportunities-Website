@@ -2,8 +2,16 @@
 
 @layer base {
   :root {
-    --background: #020617;
-    --foreground: #f8fafc;
+    --background: #0b1220;
+    --foreground: #edf2ff;
+    --panel: #101b2d;
+    --panel-soft: #162233;
+    --panel-muted: #1a2a3d;
+    --border: rgba(148, 163, 184, 0.2);
+    --muted: #9aa8be;
+    --accent: #5b7cff;
+    --accent-strong: #3a5ae6;
+    --accent-soft: rgba(91, 124, 255, 0.12);
   }
 
   html {
@@ -11,8 +19,8 @@
   }
 
   body {
-    background-color: #020617;
-    color: #f8fafc;
+    background: linear-gradient(180deg, #0b1220 0%, #101b2d 100%);
+    color: var(--foreground);
   }
 }
 
@@ -23,16 +31,16 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #090d16;
+  background: #0f172a;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: #2d3d57;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+  background: #415a7b;
 }
 
 /* Utility to hide scrollbars for horizontal chip rows */
