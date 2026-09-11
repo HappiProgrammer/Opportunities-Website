@@ -32,14 +32,6 @@ import {
 
 const STORAGE_KEY_OPPORTUNITIES = 'opporsphere_catalog_v1';
 const STORAGE_KEY_BOOKMARKS = 'opporsphere_bookmarks_v1';
-const CATEGORY_ORDER: Exclude<OpportunityCategory, 'All'>[] = [
-  'Jobs',
-  'Internships',
-  'Scholarships',
-  'Grants',
-  'Hackathons',
-  'Fellowships'
-];
 
 export default function Home() {
   const [opportunities, setOpportunities] = useState<Opportunity[]>(INITIAL_OPPORTUNITIES);
@@ -278,15 +270,6 @@ export default function Home() {
     });
   }, [opportunities, filterState, bookmarkedIds]);
 
-  const groupedOpportunities = useMemo(
-    () =>
-      CATEGORY_ORDER.map((category) => ({
-        category,
-        opportunities: filteredOpportunities.filter((opportunity) => opportunity.category === category)
-      })).filter((group) => group.opportunities.length > 0),
-    [filteredOpportunities]
-  );
-
   const renderOpportunityGrid = (items: Opportunity[]) => (
     <div
       className={
@@ -321,11 +304,13 @@ export default function Home() {
       />
 
       {/* Hero Section */}
-      <Hero
-        searchQuery={filterState.searchQuery}
-        onSearchChange={(query) => handleFilterUpdate({ searchQuery: query })}
-        totalOpportunities={opportunities.length}
-      />
+      {filterState.category === 'All' && (
+        <Hero
+          searchQuery={filterState.searchQuery}
+          onSearchChange={(query) => handleFilterUpdate({ searchQuery: query })}
+          totalOpportunities={opportunities.length}
+        />
+      )}
 
       {/* Main Content Area */}
       <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
@@ -370,28 +355,8 @@ export default function Home() {
         )}
 
         {/* Feed Listing */}
-        {filteredOpportunities.length > 0 ? (
-          filterState.category === 'All' ? (
-            <div className="space-y-12">
-              {groupedOpportunities.map(({ category, opportunities: categoryOpportunities }) => (
-                <section key={category} aria-labelledby={`${category}-heading`}>
-                  <div className="flex items-end justify-between gap-4 mb-5 border-b border-slate-200 pb-3">
-                    <div>
-                      <h2 id={`${category}-heading`} className="font-display text-2xl sm:text-3xl font-bold text-[#182338]">
-                        {category}
-                      </h2>
-                      <p className="mt-1 text-sm text-slate-500">
-                        {categoryOpportunities.length} {categoryOpportunities.length === 1 ? 'opportunity' : 'opportunities'}
-                      </p>
-                    </div>
-                  </div>
-                  {renderOpportunityGrid(categoryOpportunities)}
-                </section>
-              ))}
-            </div>
-          ) : (
-            renderOpportunityGrid(filteredOpportunities)
-          )
+        {filterState.category !== 'All' && filteredOpportunities.length > 0 ? (
+          renderOpportunityGrid(filteredOpportunities)
         ) : (
           /* Empty State */
           <div className="text-center py-20 px-4 max-w-md mx-auto space-y-4">

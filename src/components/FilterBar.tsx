@@ -17,7 +17,8 @@ import {
   List,
   RotateCcw,
   CheckCircle2,
-  Globe2
+  Globe2,
+  Search,
 } from 'lucide-react';
 
 interface FilterBarProps {
@@ -77,6 +78,7 @@ export default function FilterBar({
   return (
     <div className="w-full mb-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {filterState.category === 'All' ? (
         <div>
           <div className="mb-6">
             <h2 className="font-display text-3xl sm:text-4xl font-bold text-[#182338]">Explore by category</h2>
@@ -116,86 +118,63 @@ export default function FilterBar({
             })}
           </div>
 
-          <div className="mt-8 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-[0_12px_30px_rgba(52,72,106,0.06)]">
-            <div className="flex flex-wrap items-center gap-2.5">
+        </div>
+        ) : (
+          <div>
+            <div className="mb-8">
+              <h1 className="font-display text-4xl sm:text-5xl font-bold text-[#182338]">{filterState.category}</h1>
+              <p className="mt-2 text-lg text-slate-500">{totalFilteredCount} {totalFilteredCount === 1 ? 'opportunity' : 'opportunities'} found</p>
+            </div>
+
+            <div className="flex flex-col gap-3 lg:flex-row lg:items-center">
+              <label className="relative flex-1">
+                <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
+                <input
+                  type="search"
+                  value={filterState.searchQuery}
+                  onChange={(event) => onFilterChange({ searchQuery: event.target.value })}
+                  placeholder="Search opportunities..."
+                  aria-label={`Search ${filterState.category}`}
+                  className="w-full rounded-xl border border-[#cbd9e8] bg-white px-12 py-4 text-base text-[#182338] outline-none placeholder:text-slate-400 focus:border-[#3159c9] focus:ring-2 focus:ring-[#edf3ff]"
+                />
+              </label>
+              <select
+                value={filterState.category}
+                onChange={(event) => onFilterChange({ category: event.target.value as OpportunityCategory })}
+                aria-label="Choose opportunity category"
+                className="rounded-xl border border-[#cbd9e8] bg-white px-4 py-4 text-base text-[#182338] outline-none focus:border-[#3159c9] focus:ring-2 focus:ring-[#edf3ff]"
+              >
+                {CATEGORIES.map((category) => (
+                  <option key={category.id} value={category.id}>
+                    {category.id === 'All' ? 'All Opportunities' : category.label}
+                  </option>
+                ))}
+              </select>
               <button
                 onClick={() => onFilterChange({ isRemoteOnly: !filterState.isRemoteOnly })}
-                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${
+                className={`inline-flex items-center justify-center gap-2 rounded-xl border px-4 py-4 text-base transition-colors ${
                   filterState.isRemoteOnly
-                    ? 'bg-[#edf3ff] border-[#9eb5eb] text-[#3159c9]'
-                    : 'bg-white border-slate-200 text-slate-500 hover:text-slate-700'
+                    ? 'border-[#9eb5eb] bg-[#edf3ff] text-[#3159c9]'
+                    : 'border-[#cbd9e8] bg-white text-slate-600 hover:border-[#9eb5eb]'
                 }`}
               >
-                <Globe2 className="w-3.5 h-3.5" />
-                <span>Remote / Worldwide</span>
-                {filterState.isRemoteOnly && <CheckCircle2 className="w-3.5 h-3.5 text-[#3159c9]" />}
+                <span className={`h-5 w-5 rounded border ${filterState.isRemoteOnly ? 'border-[#3159c9] bg-[#3159c9]' : 'border-slate-400 bg-white'}`}>
+                  {filterState.isRemoteOnly && <CheckCircle2 className="h-4 w-4 text-white" />}
+                </span>
+                Remote only
               </button>
-
+            </div>
+            <div className="mt-4 flex items-center justify-between gap-3">
               {isAnyFilterActive && (
-                <button
-                  onClick={handleReset}
-                  className="inline-flex items-center gap-1 px-2.5 py-1 text-xs text-[#b42318] hover:text-[#8f1d14] bg-[#fff4f2] border border-[#f3c3bd] rounded-lg hover:bg-[#ffe9e5] transition-colors"
-                  title="Reset all applied filters"
-                >
-                  <RotateCcw className="w-3 h-3" />
-                  <span>Reset</span>
+                <button onClick={handleReset} className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#3159c9] hover:text-[#2447a7]">
+                  <RotateCcw className="h-4 w-4" />
+                  Back to all categories
                 </button>
               )}
-            </div>
-
-            <div className="flex items-center gap-3">
-              <span className="text-xs text-slate-500 hidden lg:inline">
-                Showing <strong className="text-[#182338]">{totalFilteredCount}</strong> opportunities
-              </span>
-
-              <div className="flex items-center gap-1.5 text-xs text-slate-400">
-                <span className="hidden sm:inline">Sort:</span>
-                <select
-                  value={filterState.sortBy}
-                  onChange={(e) =>
-                    onFilterChange({
-                      sortBy: e.target.value as FilterState['sortBy']
-                    })
-                  }
-                  aria-label="Sort opportunities"
-                  className="bg-white border border-slate-200 text-slate-600 text-xs rounded-lg px-2.5 py-1.5 focus:outline-none focus:ring-1 focus:ring-[#3159c9]"
-                >
-                  <option value="featured">Featured &amp; Top Picks</option>
-                  <option value="deadline-asc">Deadline (Soonest First)</option>
-                  <option value="newest">Newest Added</option>
-                  <option value="highest-funding">Highest Funding</option>
-                </select>
-              </div>
-
-              <div className="flex items-center bg-[#f7f9fc] border border-slate-200 rounded-lg p-0.5">
-                <button
-                  onClick={() => onViewModeChange('grid')}
-                  className={`p-1.5 rounded-md transition-colors ${
-                    viewMode === 'grid'
-                      ? 'bg-[#3159c9] text-white shadow-sm'
-                      : 'text-slate-400 hover:text-slate-700'
-                  }`}
-                  title="Grid view"
-                  aria-label="Grid view"
-                >
-                  <LayoutGrid className="w-4 h-4" />
-                </button>
-                <button
-                  onClick={() => onViewModeChange('list')}
-                  className={`p-1.5 rounded-md transition-colors ${
-                    viewMode === 'list'
-                      ? 'bg-[#3159c9] text-white shadow-sm'
-                      : 'text-slate-400 hover:text-slate-700'
-                  }`}
-                  title="List view"
-                  aria-label="List view"
-                >
-                  <List className="w-4 h-4" />
-                </button>
-              </div>
+              <span className="ml-auto text-sm text-slate-500">Showing {totalFilteredCount} opportunities</span>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
