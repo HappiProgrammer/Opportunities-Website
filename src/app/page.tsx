@@ -291,6 +291,11 @@ export default function Home() {
     </div>
   );
 
+  const latestOpportunities = useMemo(
+    () => [...opportunities].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()).slice(0, 3),
+    [opportunities]
+  );
+
   return (
     <div className="min-h-screen flex flex-col bg-[#f6f8fc] text-[#182338] selection:bg-[#cbd9f8] selection:text-[#182338]">
       {/* Top Navigation */}
@@ -323,6 +328,29 @@ export default function Home() {
           onViewModeChange={setViewMode}
           totalFilteredCount={filteredOpportunities.length}
         />
+
+        {filterState.category === 'All' && (
+          <section className="mt-16" aria-labelledby="latest-opportunities-heading">
+            <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#3159c9]">Freshly added</p>
+                <h2 id="latest-opportunities-heading" className="mt-2 font-display text-3xl sm:text-4xl font-bold text-[#182338]">
+                  Latest opportunities
+                </h2>
+                <p className="mt-2 text-base text-slate-500">A short list of new possibilities worth a closer look.</p>
+              </div>
+              <button
+                type="button"
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                className="inline-flex items-center gap-2 text-sm font-semibold text-[#3159c9] hover:text-[#2447a7]"
+              >
+                Explore categories
+                <span aria-hidden="true" className="text-lg">-&gt;</span>
+              </button>
+            </div>
+            {renderOpportunityGrid(latestOpportunities)}
+          </section>
+        )}
 
         {/* Active Filter Indicators if any */}
         {(filterState.savedOnly || filterState.searchQuery) && (
