@@ -2,20 +2,20 @@
 
 @layer base {
   :root {
-    --background: #0b1220;
-    --foreground: #edf2ff;
-    --panel: #101b2d;
-    --panel-soft: #162233;
-    --panel-muted: #1a2a3d;
-    --border: rgba(148, 163, 184, 0.18);
-    --muted: #9aa8be;
-    --accent: #3f63ed;
-    --accent-strong: #2f4ec5;
-    --accent-soft: rgba(63, 99, 237, 0.14);
+    --background: #f6f8fc;
+    --foreground: #182338;
+    --panel: #ffffff;
+    --panel-soft: #f0f4fa;
+    --panel-muted: #e8eef7;
+    --border: rgba(100, 116, 139, 0.2);
+    --muted: #64748b;
+    --accent: #3159c9;
+    --accent-strong: #2447a7;
+    --accent-soft: rgba(49, 89, 201, 0.1);
     --success: #2bb673;
     --warning: #f0b24e;
     --danger: #e76e6e;
-    --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.16);
+    --shadow-soft: 0 18px 40px rgba(52, 72, 106, 0.1);
   }
 
   html {
@@ -24,7 +24,7 @@
   }
 
   body {
-    background: linear-gradient(180deg, #0b1220 0%, #111c2c 100%);
+    background: #f6f8fc;
     color: var(--foreground);
     font-family: "Inter", "Segoe UI", sans-serif;
     letter-spacing: -0.01em;
@@ -47,16 +47,16 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #0f172a;
+  background: #e9eef6;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #2d3d57;
+  background: #b7c4d8;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #415a7b;
+  background: #8fa3bf;
 }
 
 /* Utility to hide scrollbars for horizontal chip rows */

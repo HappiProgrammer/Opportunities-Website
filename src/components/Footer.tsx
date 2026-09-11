@@ -16,18 +16,18 @@ export default function Footer({
   onOpenNewsletter
 }: FooterProps) {
   return (
-    <footer className="w-full bg-[#0b1220] border-t border-[#23314a]/80 pt-16 pb-12 text-slate-400 text-sm">
+    <footer className="w-full bg-white border-t border-slate-200 pt-16 pb-12 text-slate-500 text-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 pb-12 border-b border-[#23314a]/80">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 pb-12 border-b border-slate-200">
           <div className="md:col-span-1 space-y-4">
             <div className="flex items-center gap-2.5">
               <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-tr from-[#4d68d7] via-[#6f8cff] to-[#9ad0ff] p-[1px]">
-                <div className="w-full h-full bg-[#0b1220] rounded-[10px] flex items-center justify-center">
-                  <Compass className="w-5 h-5 text-[#9bb6ff]" />
+                <div className="w-full h-full bg-white rounded-[10px] flex items-center justify-center">
+                  <Compass className="w-5 h-5 text-[#3159c9]" />
                 </div>
               </div>
-              <span className="text-xl font-bold text-white tracking-tight">
-                Oppor<span className="text-transparent bg-clip-text bg-gradient-to-r from-[#bfd3ff] to-[#7cc7e9]">Sphere</span>
+              <span className="text-xl font-bold text-[#182338] tracking-tight">
+                Oppor<span className="text-[#3159c9]">Sphere</span>
               </span>
             </div>
             <p className="text-xs text-slate-400 leading-relaxed">
@@ -36,7 +36,7 @@ export default function Footer({
           </div>
 
           <div>
-            <h4 className="text-xs font-bold text-white uppercase tracking-wider mb-4">
+            <h4 className="text-xs font-bold text-[#182338] uppercase tracking-wider mb-4">
               Explore
             </h4>
             <ul className="space-y-2.5 text-xs">
@@ -57,7 +57,7 @@ export default function Footer({
           </div>
 
           <div className="space-y-3">
-            <h4 className="text-xs font-bold text-white uppercase tracking-wider">
+            <h4 className="text-xs font-bold text-[#182338] uppercase tracking-wider">
               Get updates
             </h4>
             <p className="text-xs text-slate-400 leading-relaxed">
@@ -65,7 +65,7 @@ export default function Footer({
             </p>
             <button
               onClick={onOpenNewsletter}
-              className="inline-flex items-center justify-center gap-2 text-xs font-semibold text-white bg-[#3f63ed] hover:bg-[#3357d7] rounded-xl px-4 py-2.5 transition-all"
+              className="inline-flex items-center justify-center gap-2 text-xs font-semibold text-white bg-[#3159c9] hover:bg-[#2447a7] rounded-xl px-4 py-2.5 transition-all"
             >
               <Sparkles className="w-3.5 h-3.5 text-white" />
               <span>Subscribe</span>

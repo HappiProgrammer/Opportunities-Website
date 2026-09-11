@@ -18,7 +18,6 @@ import {
   Compass,
   LayoutGrid,
   List,
-  Filter,
   RotateCcw,
   CheckCircle2,
   Globe2
@@ -76,7 +75,7 @@ export default function FilterBar({
   return (
     <div className="w-full mb-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="rounded-2xl border border-[#23314a] bg-[#101b2d]/80 p-3 shadow-[0_16px_40px_rgba(15,23,42,0.12)] backdrop-blur-sm">
+        <div className="rounded-2xl border border-slate-200 bg-white p-3 shadow-[0_12px_30px_rgba(52,72,106,0.08)]">
           <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none no-scrollbar">
             {CATEGORIES.map((cat) => {
               const isSelected = filterState.category === cat.id;
@@ -88,15 +87,15 @@ export default function FilterBar({
                   onClick={() => onFilterChange({ category: cat.id })}
                   className={`flex-shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 ${
                     isSelected
-                      ? 'bg-gradient-to-r from-[#3f63ed] to-[#5b7cff] text-white shadow-lg shadow-[#3f63ed]/20 scale-[1.01]'
-                      : 'bg-[#121f33] text-slate-300 hover:text-white hover:bg-[#172845] border border-[#22314d]'
+                      ? 'bg-[#3159c9] text-white shadow-md shadow-[#3159c9]/20 scale-[1.01]'
+                      : 'bg-[#f7f9fc] text-slate-600 hover:text-[#3159c9] hover:bg-[#edf3ff] border border-slate-200'
                   }`}
                 >
-                  <span className={isSelected ? 'text-white' : 'text-[#9bb6ff]'}>{cat.icon}</span>
+                  <span className={isSelected ? 'text-white' : 'text-[#3159c9]'}>{cat.icon}</span>
                   <span>{cat.label}</span>
                   <span
                     className={`ml-1 px-1.5 py-0.5 rounded-full text-[11px] font-bold ${
-                      isSelected ? 'bg-white/15 text-white' : 'bg-[#1a2c43] text-slate-400'
+                      isSelected ? 'bg-white/15 text-white' : 'bg-[#e8eef7] text-slate-500'
                     }`}
                   >
                     {count}
@@ -106,66 +105,25 @@ export default function FilterBar({
             })}
           </div>
 
-          <div className="mt-3 flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-[#23314a]">
+          <div className="mt-3 flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-200">
             <div className="flex flex-wrap items-center gap-2.5">
               <button
                 onClick={() => onFilterChange({ isRemoteOnly: !filterState.isRemoteOnly })}
                 className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${
                   filterState.isRemoteOnly
-                    ? 'bg-[#13263d] border-[#4f7acb] text-[#cfe0ff]'
-                    : 'bg-[#121f33] border-[#22314d] text-slate-400 hover:text-slate-200'
+                    ? 'bg-[#edf3ff] border-[#9eb5eb] text-[#3159c9]'
+                    : 'bg-white border-slate-200 text-slate-500 hover:text-slate-700'
                 }`}
               >
                 <Globe2 className="w-3.5 h-3.5" />
                 <span>Remote / Worldwide</span>
-                {filterState.isRemoteOnly && <CheckCircle2 className="w-3.5 h-3.5 text-[#9bb6ff]" />}
+                {filterState.isRemoteOnly && <CheckCircle2 className="w-3.5 h-3.5 text-[#3159c9]" />}
               </button>
-
-              <select
-                value={filterState.deadlineStatus}
-                onChange={(e) => onFilterChange({ deadlineStatus: e.target.value as DeadlineFilter })}
-                aria-label="Filter by deadline status"
-                className="bg-[#121f33] border border-[#22314d] text-slate-300 hover:border-[#35508f] text-xs rounded-lg px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-[#5b7cff]"
-              >
-                <option value="all">Deadlines: All</option>
-                <option value="closing-soon">⏳ Closing Soon (&lt; 7 Days)</option>
-                <option value="active">🟢 Active / Open</option>
-                <option value="rolling">🔄 Rolling Deadlines</option>
-              </select>
-
-              <select
-                value={filterState.fundingType}
-                onChange={(e) => onFilterChange({ fundingType: e.target.value as FundingFilter })}
-                aria-label="Filter by funding type"
-                className="bg-[#121f33] border border-[#22314d] text-slate-300 hover:border-[#35508f] text-xs rounded-lg px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-[#5b7cff]"
-              >
-                <option value="all">Funding: Any</option>
-                <option value="fully-funded">✨ Fully Funded</option>
-                <option value="paid">💰 Paid / Stipend</option>
-                <option value="high-reward">🏆 High Reward / &gt;$50k</option>
-              </select>
-
-              <select
-                value={filterState.educationLevel}
-                onChange={(e) =>
-                  onFilterChange({
-                    educationLevel: e.target.value as EducationLevel | 'all'
-                  })
-                }
-                aria-label="Filter by education level"
-                className="bg-[#121f33] border border-[#22314d] text-slate-300 hover:border-[#35508f] text-xs rounded-lg px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-[#5b7cff] hidden sm:inline-block"
-              >
-                <option value="all">Target Level: All</option>
-                <option value="Any / All Levels">Any / Open to All</option>
-                <option value="Undergraduate">Undergraduate Students</option>
-                <option value="Graduate">Graduate / Masters</option>
-                <option value="Post-Doc / Professional">Post-Doc / Professional</option>
-              </select>
 
               {isAnyFilterActive && (
                 <button
                   onClick={handleReset}
-                  className="inline-flex items-center gap-1 px-2.5 py-1 text-xs text-[#f6b3b3] hover:text-[#ffc7c7] bg-[#2c1920]/70 border border-[#61363d] rounded-lg hover:bg-[#3c2027] transition-colors"
+                  className="inline-flex items-center gap-1 px-2.5 py-1 text-xs text-[#b42318] hover:text-[#8f1d14] bg-[#fff4f2] border border-[#f3c3bd] rounded-lg hover:bg-[#ffe9e5] transition-colors"
                   title="Reset all applied filters"
                 >
                   <RotateCcw className="w-3 h-3" />
@@ -175,8 +133,8 @@ export default function FilterBar({
             </div>
 
             <div className="flex items-center gap-3">
-              <span className="text-xs text-slate-400 hidden lg:inline">
-                Showing <strong className="text-white">{totalFilteredCount}</strong> opportunities
+              <span className="text-xs text-slate-500 hidden lg:inline">
+                Showing <strong className="text-[#182338]">{totalFilteredCount}</strong> opportunities
               </span>
 
               <div className="flex items-center gap-1.5 text-xs text-slate-400">
@@ -189,7 +147,7 @@ export default function FilterBar({
                     })
                   }
                   aria-label="Sort opportunities"
-                  className="bg-[#121f33] border border-[#22314d] text-slate-300 text-xs rounded-lg px-2.5 py-1.5 focus:outline-none focus:ring-1 focus:ring-[#5b7cff]"
+                  className="bg-white border border-slate-200 text-slate-600 text-xs rounded-lg px-2.5 py-1.5 focus:outline-none focus:ring-1 focus:ring-[#3159c9]"
                 >
                   <option value="featured">Featured &amp; Top Picks</option>
                   <option value="deadline-asc">Deadline (Soonest First)</option>
@@ -198,13 +156,13 @@ export default function FilterBar({
                 </select>
               </div>
 
-              <div className="flex items-center bg-[#121f33] border border-[#22314d] rounded-lg p-0.5">
+              <div className="flex items-center bg-[#f7f9fc] border border-slate-200 rounded-lg p-0.5">
                 <button
                   onClick={() => onViewModeChange('grid')}
                   className={`p-1.5 rounded-md transition-colors ${
                     viewMode === 'grid'
-                      ? 'bg-[#3f63ed] text-white shadow-sm'
-                      : 'text-slate-400 hover:text-slate-200'
+                      ? 'bg-[#3159c9] text-white shadow-sm'
+                      : 'text-slate-400 hover:text-slate-700'
                   }`}
                   title="Grid view"
                   aria-label="Grid view"
@@ -215,8 +173,8 @@ export default function FilterBar({
                   onClick={() => onViewModeChange('list')}
                   className={`p-1.5 rounded-md transition-colors ${
                     viewMode === 'list'
-                      ? 'bg-violet-600 text-white shadow-sm'
-                      : 'text-slate-400 hover:text-slate-200'
+                      ? 'bg-[#3159c9] text-white shadow-sm'
+                      : 'text-slate-400 hover:text-slate-700'
                   }`}
                   title="List view"
                   aria-label="List view"

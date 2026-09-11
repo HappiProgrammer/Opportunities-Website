@@ -76,7 +76,7 @@ export default function OpportunityCard({
 
   if (viewMode === 'list') {
     return (
-      <div className="group relative bg-[#101b2d]/85 hover:bg-[#121f33] border border-[#23314a] hover:border-[#3f63ed]/40 rounded-2xl p-4 sm:p-5 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_20px_45px_rgba(15,23,42,0.14)] flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="group relative bg-white hover:bg-[#fbfcfe] border border-slate-200 hover:border-[#9eb5eb] rounded-2xl p-4 sm:p-5 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_20px_45px_rgba(52,72,106,0.12)] flex flex-col md:flex-row md:items-center justify-between gap-4">
         {/* Left main info */}
         <div className="flex items-start gap-4 flex-1">
           {/* Organization Avatar */}
@@ -114,13 +114,13 @@ export default function OpportunityCard({
 
             <h3
               onClick={() => onSelect(opportunity)}
-              className="text-base sm:text-lg font-bold text-white group-hover:text-violet-300 cursor-pointer transition-colors truncate"
+              className="text-base sm:text-lg font-bold text-[#182338] group-hover:text-[#3159c9] cursor-pointer transition-colors truncate"
             >
               {opportunity.title}
             </h3>
 
             <div className="flex flex-wrap items-center gap-y-1 gap-x-3 text-xs text-slate-400 mt-1">
-              <span className="font-medium text-slate-200">{opportunity.organization}</span>
+              <span className="font-medium text-slate-700">{opportunity.organization}</span>
               <span>•</span>
               <span className="inline-flex items-center gap-1">
                 <MapPin className="w-3 h-3 text-slate-500" />
@@ -168,7 +168,7 @@ export default function OpportunityCard({
 
   // Default: Grid Card view
   return (
-    <div className="group relative bg-[#101b2d]/85 hover:bg-[#121f33] border border-[#23314a] hover:border-[#3f63ed]/50 rounded-2xl p-5 sm:p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_22px_50px_rgba(15,23,42,0.14)] flex flex-col justify-between backdrop-blur-sm min-h-[360px]">
+    <div className="group relative bg-white hover:bg-[#fbfcfe] border border-slate-200 hover:border-[#9eb5eb] rounded-2xl p-5 sm:p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_22px_50px_rgba(52,72,106,0.12)] flex flex-col justify-between min-h-[360px]">
       <div>
         {/* Top bar: Category + Badges + Bookmark */}
         <div className="flex items-start justify-between gap-2 mb-4">
@@ -244,13 +244,13 @@ export default function OpportunityCard({
         {/* Opportunity Title */}
         <h3
           onClick={() => onSelect(opportunity)}
-          className="text-lg font-bold text-white group-hover:text-violet-300 cursor-pointer transition-colors line-clamp-2 mb-2 leading-snug"
+          className="text-lg font-bold text-[#182338] group-hover:text-[#3159c9] cursor-pointer transition-colors line-clamp-2 mb-2 leading-snug"
         >
           {opportunity.title}
         </h3>
 
         {/* Description snippet */}
-        <p className="text-xs text-slate-400 line-clamp-2 leading-relaxed mb-4">
+        <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed mb-4">
           {opportunity.description}
         </p>
 
@@ -293,7 +293,7 @@ export default function OpportunityCard({
         {/* Bottom CTA Button */}
         <button
           onClick={() => onSelect(opportunity)}
-          className="w-full flex items-center justify-center gap-2 py-2 px-3 text-xs sm:text-sm font-semibold text-white bg-[#121f33] group-hover:bg-[#3f63ed] rounded-xl transition-all duration-200 group-hover:shadow-lg group-hover:shadow-[#3f63ed]/20"
+          className="w-full flex items-center justify-center gap-2 py-2 px-3 text-xs sm:text-sm font-semibold text-[#3159c9] bg-[#edf3ff] group-hover:bg-[#3159c9] group-hover:text-white rounded-xl transition-all duration-200"
         >
           <span>View official source</span>
           <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
