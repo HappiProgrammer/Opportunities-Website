@@ -6,19 +6,24 @@ import { Search, DollarSign, Award, Clock, Globe2 } from 'lucide-react';
 interface HeroProps {
   searchQuery: string;
   onSearchChange: (query: string) => void;
-  totalOpportunities: number;
+  stats: {
+    activeListings: number;
+    fundedListings: number;
+    closingSoon: number;
+    locations: number;
+  };
 }
 
 export default function Hero({
   searchQuery,
   onSearchChange,
-  totalOpportunities
+  stats: { activeListings, fundedListings, closingSoon, locations }
 }: HeroProps) {
   const stats = [
-    { value: `${totalOpportunities}+`, label: 'Active listings', detail: 'Hand-verified', icon: Award, tone: 'text-[#9bb6ff]' },
-    { value: '$12.4M+', label: 'Funding pool', detail: 'Grants & stipends', icon: DollarSign, tone: 'text-[#7ee1b2]' },
-    { value: '4', label: 'Closing soon', detail: 'This week', icon: Clock, tone: 'text-[#f4c46b]' },
-    { value: '120+', label: 'Countries', detail: 'Global access', icon: Globe2, tone: 'text-[#a9d8ff]' }
+    { value: `${activeListings}`, label: 'Active listings', detail: 'Currently listed', icon: Award, tone: 'text-[#9bb6ff]' },
+    { value: `${fundedListings}`, label: 'Funded listings', detail: 'Funding information listed', icon: DollarSign, tone: 'text-[#7ee1b2]' },
+    { value: `${closingSoon}`, label: 'Closing soon', detail: 'Within 7 days', icon: Clock, tone: 'text-[#f4c46b]' },
+    { value: `${locations}`, label: 'Locations', detail: 'Distinct locations listed', icon: Globe2, tone: 'text-[#a9d8ff]' }
   ];
 
   return (

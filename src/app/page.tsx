@@ -270,6 +270,25 @@ export default function Home() {
     });
   }, [opportunities, filterState, bookmarkedIds]);
 
+  const heroStats = useMemo(() => {
+    const referenceDate = new Date('2026-09-11');
+    const closingSoon = opportunities.filter((opportunity) => {
+      if (!opportunity.deadline || opportunity.deadline.toLowerCase() === 'rolling') return false;
+      const deadlineDate = new Date(opportunity.deadline);
+      const daysRemaining = Math.ceil(
+        (deadlineDate.getTime() - referenceDate.getTime()) / (1000 * 60 * 60 * 24)
+      );
+      return daysRemaining >= 0 && daysRemaining <= 7;
+    }).length;
+
+    return {
+      activeListings: opportunities.length,
+      fundedListings: opportunities.filter((opportunity) => Boolean(opportunity.fundingAmount?.trim())).length,
+      closingSoon,
+      locations: new Set(opportunities.map((opportunity) => opportunity.location.trim())).size
+    };
+  }, [opportunities]);
+
   const renderOpportunityGrid = (items: Opportunity[]) => (
     <div
       className={
@@ -313,7 +332,7 @@ export default function Home() {
         <Hero
           searchQuery={filterState.searchQuery}
           onSearchChange={(query) => handleFilterUpdate({ searchQuery: query })}
-          totalOpportunities={opportunities.length}
+          stats={heroStats}
         />
       )}
 
