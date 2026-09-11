@@ -7,20 +7,36 @@
     --panel: #101b2d;
     --panel-soft: #162233;
     --panel-muted: #1a2a3d;
-    --border: rgba(148, 163, 184, 0.2);
+    --border: rgba(148, 163, 184, 0.18);
     --muted: #9aa8be;
-    --accent: #5b7cff;
-    --accent-strong: #3a5ae6;
-    --accent-soft: rgba(91, 124, 255, 0.12);
+    --accent: #3f63ed;
+    --accent-strong: #2f4ec5;
+    --accent-soft: rgba(63, 99, 237, 0.14);
+    --success: #2bb673;
+    --warning: #f0b24e;
+    --danger: #e76e6e;
+    --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.16);
   }
 
   html {
     scroll-behavior: smooth;
+    background: var(--background);
   }
 
   body {
-    background: linear-gradient(180deg, #0b1220 0%, #101b2d 100%);
+    background: linear-gradient(180deg, #0b1220 0%, #111c2c 100%);
     color: var(--foreground);
+    font-family: "Inter", "Segoe UI", sans-serif;
+    letter-spacing: -0.01em;
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: Georgia, "Times New Roman", serif;
+    letter-spacing: -0.04em;
+  }
+
+  a, button, input, select {
+    transition: all 180ms ease;
   }
 }
 

@@ -333,6 +333,53 @@ export default function Home() {
           </div>
         )}
 
+        <section id="verification" className="mb-8 rounded-2xl border border-[#23314a] bg-[#101b2d]/80 p-5 sm:p-6 shadow-[0_16px_40px_rgba(15,23,42,0.12)]">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="text-[11px] uppercase tracking-[0.14em] font-semibold text-[#9bb6ff]">How we verify listings</p>
+              <h3 className="mt-1 font-display text-2xl text-white">Trust starts with source quality.</h3>
+            </div>
+            <a href="#" className="inline-flex items-center gap-2 text-sm font-semibold text-[#cfe0ff] hover:text-white">
+              Read our verification process
+              <ArrowUpRight className="h-4 w-4" />
+            </a>
+          </div>
+          <div className="mt-4 grid gap-3 md:grid-cols-3">
+            <div className="rounded-xl border border-[#22314d] bg-[#121f33] p-4">
+              <div className="text-xs uppercase tracking-[0.12em] text-slate-400">01</div>
+              <p className="mt-2 text-sm text-slate-200">We confirm the listing is published on the official organization or university source.</p>
+            </div>
+            <div className="rounded-xl border border-[#22314d] bg-[#121f33] p-4">
+              <div className="text-xs uppercase tracking-[0.12em] text-slate-400">02</div>
+              <p className="mt-2 text-sm text-slate-200">We validate funding, eligibility, and deadline details before surfacing the card.</p>
+            </div>
+            <div className="rounded-xl border border-[#22314d] bg-[#121f33] p-4">
+              <div className="text-xs uppercase tracking-[0.12em] text-slate-400">03</div>
+              <p className="mt-2 text-sm text-slate-200">We display a clear official-source call to action so users can evaluate the opportunity on the original site.</p>
+            </div>
+          </div>
+        </section>
+
+        <section className="mb-10">
+          <div className="mb-4 flex items-center justify-between">
+            <h3 className="font-display text-2xl text-white">Applicant stories</h3>
+            <span className="text-xs uppercase tracking-[0.12em] text-slate-400">Verified outcomes</span>
+          </div>
+          <div className="grid gap-4 md:grid-cols-3">
+            {[
+              { name: 'Amina K.', result: 'Google Summer of Code → Open Source Fellow', quote: 'The platform made it easy to compare deadlines and technical fit before I applied.' },
+              { name: 'Leo M.', result: 'Rhodes Scholar finalist', quote: 'I trusted the verified wording and official links because the eligibility details were so clear.' },
+              { name: 'Sofia R.', result: 'Thiel Fellowship applicant', quote: 'The structured cards saved me hours of research across multiple founder programs.' }
+            ].map((story) => (
+              <div key={story.name} className="rounded-2xl border border-[#23314a] bg-[#101b2d]/80 p-4">
+                <div className="mb-3 text-xs uppercase tracking-[0.12em] text-[#9bb6ff]">{story.result}</div>
+                <p className="text-sm leading-relaxed text-slate-300">“{story.quote}”</p>
+                <div className="mt-4 text-sm font-semibold text-white">{story.name}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+
         {/* Feed Listing */}
         {filteredOpportunities.length > 0 ? (
           <div

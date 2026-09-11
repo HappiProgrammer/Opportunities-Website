@@ -74,150 +74,141 @@ export default function FilterBar({
   };
 
   return (
-    <div className="w-full bg-slate-900/40 border-y border-slate-800/60 py-6 mb-8 backdrop-blur-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-5">
-        {/* Category Navigation Pills */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none no-scrollbar">
-          {CATEGORIES.map((cat) => {
-            const isSelected = filterState.category === cat.id;
-            const count = categoryCounts[cat.id] || 0;
+    <div className="w-full mb-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="rounded-2xl border border-[#23314a] bg-[#101b2d]/80 p-3 shadow-[0_16px_40px_rgba(15,23,42,0.12)] backdrop-blur-sm">
+          <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none no-scrollbar">
+            {CATEGORIES.map((cat) => {
+              const isSelected = filterState.category === cat.id;
+              const count = categoryCounts[cat.id] || 0;
 
-            return (
-              <button
-                key={cat.id}
-                onClick={() => onFilterChange({ category: cat.id })}
-                className={`flex-shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 ${
-                  isSelected
-                    ? 'bg-gradient-to-r from-violet-600 to-indigo-600 text-white shadow-lg shadow-violet-600/30 scale-[1.02]'
-                    : 'bg-slate-900 text-slate-300 hover:text-white hover:bg-slate-800 border border-slate-800'
-                }`}
-              >
-                <span className={isSelected ? 'text-white' : 'text-violet-400'}>{cat.icon}</span>
-                <span>{cat.label}</span>
-                <span
-                  className={`ml-1 px-1.5 py-0.5 rounded-full text-[11px] font-bold ${
-                    isSelected ? 'bg-white/20 text-white' : 'bg-slate-800 text-slate-400'
+              return (
+                <button
+                  key={cat.id}
+                  onClick={() => onFilterChange({ category: cat.id })}
+                  className={`flex-shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 ${
+                    isSelected
+                      ? 'bg-gradient-to-r from-[#3f63ed] to-[#5b7cff] text-white shadow-lg shadow-[#3f63ed]/20 scale-[1.01]'
+                      : 'bg-[#121f33] text-slate-300 hover:text-white hover:bg-[#172845] border border-[#22314d]'
                   }`}
                 >
-                  {count}
-                </span>
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Secondary Filter Controls Row */}
-        <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-slate-800/60">
-          <div className="flex flex-wrap items-center gap-2.5">
-            {/* Remote Only Toggle */}
-            <button
-              onClick={() => onFilterChange({ isRemoteOnly: !filterState.isRemoteOnly })}
-              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${
-                filterState.isRemoteOnly
-                  ? 'bg-cyan-950/80 border-cyan-500 text-cyan-300'
-                  : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-slate-200'
-              }`}
-            >
-              <Globe2 className="w-3.5 h-3.5" />
-              <span>Remote / Worldwide</span>
-              {filterState.isRemoteOnly && <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400" />}
-            </button>
-
-            {/* Deadline Urgency Filter */}
-            <select
-              value={filterState.deadlineStatus}
-              onChange={(e) => onFilterChange({ deadlineStatus: e.target.value as DeadlineFilter })}
-              aria-label="Filter by deadline status"
-              className="bg-slate-900 border border-slate-800 text-slate-300 hover:border-slate-700 text-xs rounded-lg px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-violet-500"
-            >
-              <option value="all">Deadlines: All</option>
-              <option value="closing-soon">⏳ Closing Soon (&lt; 7 Days)</option>
-              <option value="active">🟢 Active / Open</option>
-              <option value="rolling">🔄 Rolling Deadlines</option>
-            </select>
-
-            {/* Funding Filter */}
-            <select
-              value={filterState.fundingType}
-              onChange={(e) => onFilterChange({ fundingType: e.target.value as FundingFilter })}
-              aria-label="Filter by funding type"
-              className="bg-slate-900 border border-slate-800 text-slate-300 hover:border-slate-700 text-xs rounded-lg px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-violet-500"
-            >
-              <option value="all">Funding: Any</option>
-              <option value="fully-funded">✨ Fully Funded</option>
-              <option value="paid">💰 Paid / Stipend</option>
-              <option value="high-reward">🏆 High Reward / &gt;$50k</option>
-            </select>
-
-            {/* Education Level Filter */}
-            <select
-              value={filterState.educationLevel}
-              onChange={(e) =>
-                onFilterChange({
-                  educationLevel: e.target.value as EducationLevel | 'all'
-                })
-              }
-              aria-label="Filter by education level"
-              className="bg-slate-900 border border-slate-800 text-slate-300 hover:border-slate-700 text-xs rounded-lg px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-violet-500 hidden sm:inline-block"
-            >
-              <option value="all">Target Level: All</option>
-              <option value="Any / All Levels">Any / Open to All</option>
-              <option value="Undergraduate">Undergraduate Students</option>
-              <option value="Graduate">Graduate / Masters</option>
-              <option value="Post-Doc / Professional">Post-Doc / Professional</option>
-            </select>
-
-            {/* Reset Filters button */}
-            {isAnyFilterActive && (
-              <button
-                onClick={handleReset}
-                className="inline-flex items-center gap-1 px-2.5 py-1 text-xs text-rose-400 hover:text-rose-300 bg-rose-950/30 border border-rose-900/50 rounded-lg hover:bg-rose-950/50 transition-colors"
-                title="Reset all applied filters"
-              >
-                <RotateCcw className="w-3 h-3" />
-                <span>Reset</span>
-              </button>
-            )}
+                  <span className={isSelected ? 'text-white' : 'text-[#9bb6ff]'}>{cat.icon}</span>
+                  <span>{cat.label}</span>
+                  <span
+                    className={`ml-1 px-1.5 py-0.5 rounded-full text-[11px] font-bold ${
+                      isSelected ? 'bg-white/15 text-white' : 'bg-[#1a2c43] text-slate-400'
+                    }`}
+                  >
+                    {count}
+                  </span>
+                </button>
+              );
+            })}
           </div>
 
-          {/* Right side: Sort by & View Mode Toggle */}
-          <div className="flex items-center gap-3">
-            <span className="text-xs text-slate-400 hidden lg:inline">
-              Showing <strong className="text-white">{totalFilteredCount}</strong> opportunities
-            </span>
+          <div className="mt-3 flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-[#23314a]">
+            <div className="flex flex-wrap items-center gap-2.5">
+              <button
+                onClick={() => onFilterChange({ isRemoteOnly: !filterState.isRemoteOnly })}
+                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${
+                  filterState.isRemoteOnly
+                    ? 'bg-[#13263d] border-[#4f7acb] text-[#cfe0ff]'
+                    : 'bg-[#121f33] border-[#22314d] text-slate-400 hover:text-slate-200'
+                }`}
+              >
+                <Globe2 className="w-3.5 h-3.5" />
+                <span>Remote / Worldwide</span>
+                {filterState.isRemoteOnly && <CheckCircle2 className="w-3.5 h-3.5 text-[#9bb6ff]" />}
+              </button>
 
-            {/* Sort Selector */}
-            <div className="flex items-center gap-1.5 text-xs text-slate-400">
-              <span className="hidden sm:inline">Sort:</span>
               <select
-                value={filterState.sortBy}
+                value={filterState.deadlineStatus}
+                onChange={(e) => onFilterChange({ deadlineStatus: e.target.value as DeadlineFilter })}
+                aria-label="Filter by deadline status"
+                className="bg-[#121f33] border border-[#22314d] text-slate-300 hover:border-[#35508f] text-xs rounded-lg px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-[#5b7cff]"
+              >
+                <option value="all">Deadlines: All</option>
+                <option value="closing-soon">⏳ Closing Soon (&lt; 7 Days)</option>
+                <option value="active">🟢 Active / Open</option>
+                <option value="rolling">🔄 Rolling Deadlines</option>
+              </select>
+
+              <select
+                value={filterState.fundingType}
+                onChange={(e) => onFilterChange({ fundingType: e.target.value as FundingFilter })}
+                aria-label="Filter by funding type"
+                className="bg-[#121f33] border border-[#22314d] text-slate-300 hover:border-[#35508f] text-xs rounded-lg px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-[#5b7cff]"
+              >
+                <option value="all">Funding: Any</option>
+                <option value="fully-funded">✨ Fully Funded</option>
+                <option value="paid">💰 Paid / Stipend</option>
+                <option value="high-reward">🏆 High Reward / &gt;$50k</option>
+              </select>
+
+              <select
+                value={filterState.educationLevel}
                 onChange={(e) =>
                   onFilterChange({
-                    sortBy: e.target.value as FilterState['sortBy']
+                    educationLevel: e.target.value as EducationLevel | 'all'
                   })
                 }
-                aria-label="Sort opportunities"
-                className="bg-slate-900 border border-slate-800 text-slate-300 text-xs rounded-lg px-2.5 py-1.5 focus:outline-none focus:ring-1 focus:ring-violet-500"
+                aria-label="Filter by education level"
+                className="bg-[#121f33] border border-[#22314d] text-slate-300 hover:border-[#35508f] text-xs rounded-lg px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-[#5b7cff] hidden sm:inline-block"
               >
-                <option value="featured">Featured &amp; Top Picks</option>
-                <option value="deadline-asc">Deadline (Soonest First)</option>
-                <option value="newest">Newest Added</option>
-                <option value="highest-funding">Highest Funding</option>
+                <option value="all">Target Level: All</option>
+                <option value="Any / All Levels">Any / Open to All</option>
+                <option value="Undergraduate">Undergraduate Students</option>
+                <option value="Graduate">Graduate / Masters</option>
+                <option value="Post-Doc / Professional">Post-Doc / Professional</option>
               </select>
+
+              {isAnyFilterActive && (
+                <button
+                  onClick={handleReset}
+                  className="inline-flex items-center gap-1 px-2.5 py-1 text-xs text-[#f6b3b3] hover:text-[#ffc7c7] bg-[#2c1920]/70 border border-[#61363d] rounded-lg hover:bg-[#3c2027] transition-colors"
+                  title="Reset all applied filters"
+                >
+                  <RotateCcw className="w-3 h-3" />
+                  <span>Reset</span>
+                </button>
+              )}
             </div>
 
-            {/* Grid / List View Toggle */}
-            <div className="flex items-center bg-slate-900 border border-slate-800 rounded-lg p-0.5">
-              <button
-                onClick={() => onViewModeChange('grid')}
-                className={`p-1.5 rounded-md transition-colors ${
-                  viewMode === 'grid'
-                    ? 'bg-violet-600 text-white shadow-sm'
-                    : 'text-slate-400 hover:text-slate-200'
-                }`}
-                title="Grid view"
-                aria-label="Grid view"
-              >
+            <div className="flex items-center gap-3">
+              <span className="text-xs text-slate-400 hidden lg:inline">
+                Showing <strong className="text-white">{totalFilteredCount}</strong> opportunities
+              </span>
+
+              <div className="flex items-center gap-1.5 text-xs text-slate-400">
+                <span className="hidden sm:inline">Sort:</span>
+                <select
+                  value={filterState.sortBy}
+                  onChange={(e) =>
+                    onFilterChange({
+                      sortBy: e.target.value as FilterState['sortBy']
+                    })
+                  }
+                  aria-label="Sort opportunities"
+                  className="bg-[#121f33] border border-[#22314d] text-slate-300 text-xs rounded-lg px-2.5 py-1.5 focus:outline-none focus:ring-1 focus:ring-[#5b7cff]"
+                >
+                  <option value="featured">Featured &amp; Top Picks</option>
+                  <option value="deadline-asc">Deadline (Soonest First)</option>
+                  <option value="newest">Newest Added</option>
+                  <option value="highest-funding">Highest Funding</option>
+                </select>
+              </div>
+
+              <div className="flex items-center bg-[#121f33] border border-[#22314d] rounded-lg p-0.5">
+                <button
+                  onClick={() => onViewModeChange('grid')}
+                  className={`p-1.5 rounded-md transition-colors ${
+                    viewMode === 'grid'
+                      ? 'bg-[#3f63ed] text-white shadow-sm'
+                      : 'text-slate-400 hover:text-slate-200'
+                  }`}
+                  title="Grid view"
+                  aria-label="Grid view"
+                >
                 <LayoutGrid className="w-4 h-4" />
               </button>
               <button

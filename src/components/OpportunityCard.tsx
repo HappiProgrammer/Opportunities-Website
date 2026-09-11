@@ -60,26 +60,32 @@ export default function OpportunityCard({
   }, [opportunity.deadline]);
 
   const categoryColor = {
-    Jobs: 'bg-blue-950/80 text-blue-300 border-blue-800/60',
-    Internships: 'bg-cyan-950/80 text-cyan-300 border-cyan-800/60',
-    Scholarships: 'bg-emerald-950/80 text-emerald-300 border-emerald-800/60',
-    Grants: 'bg-amber-950/80 text-amber-300 border-amber-800/60',
-    Hackathons: 'bg-rose-950/80 text-rose-300 border-rose-800/60',
-    Fellowships: 'bg-purple-950/80 text-purple-300 border-purple-800/60'
+    Jobs: 'bg-[#eaf2ff] text-[#2f4ec5] border-[#c7d8ff]',
+    Internships: 'bg-[#e9f8ff] text-[#1f6d8a] border-[#c8ebf6]',
+    Scholarships: 'bg-[#ebfff3] text-[#1f7a4d] border-[#cfeed9]',
+    Grants: 'bg-[#fff6e7] text-[#a16207] border-[#f7ddb9]',
+    Hackathons: 'bg-[#fff0f2] text-[#c12d5d] border-[#f5c7d3]',
+    Fellowships: 'bg-[#f3ebff] text-[#5b3d99] border-[#ddceff]'
   }[opportunity.category] || 'bg-slate-800 text-slate-300 border-slate-700';
+
+  const urgencyStyle = isClosingSoon
+    ? 'bg-[#2f1820] text-[#f7b9c0] border border-[#7a3342]'
+    : opportunity.deadline.toLowerCase() === 'rolling'
+      ? 'bg-[#112a2d] text-[#9fe4d4] border border-[#285a5a]'
+      : 'bg-[#121f33] text-slate-300 border border-[#22314d]';
 
   if (viewMode === 'list') {
     return (
-      <div className="group relative bg-slate-900/60 hover:bg-slate-900/90 border border-slate-800/80 hover:border-violet-500/50 rounded-2xl p-4 sm:p-5 transition-all duration-200 hover:shadow-xl hover:shadow-violet-500/5 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="group relative bg-[#101b2d]/85 hover:bg-[#121f33] border border-[#23314a] hover:border-[#3f63ed]/40 rounded-2xl p-4 sm:p-5 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_20px_45px_rgba(15,23,42,0.14)] flex flex-col md:flex-row md:items-center justify-between gap-4">
         {/* Left main info */}
         <div className="flex items-start gap-4 flex-1">
           {/* Organization Avatar */}
-          <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-slate-800 border border-slate-700 overflow-hidden flex items-center justify-center shadow-md">
+          <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-white border border-slate-200 overflow-hidden flex items-center justify-center shadow-sm">
             {opportunity.orgLogo ? (
               <img
                 src={opportunity.orgLogo}
                 alt={opportunity.organization}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-contain p-2"
                 loading="lazy"
               />
             ) : (
@@ -139,20 +145,20 @@ export default function OpportunityCard({
             onClick={() => onToggleBookmark(opportunity.id)}
             className={`p-2.5 rounded-xl border transition-colors ${
               isBookmarked
-                ? 'bg-violet-950/80 border-violet-600 text-violet-400'
-                : 'bg-slate-800/80 border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800'
+                ? 'bg-[#1d2d47] border-[#4f7acb] text-[#cfe0ff]'
+                : 'bg-[#121f33] border-[#22314d] text-slate-400 hover:text-white hover:bg-[#18253d]'
             }`}
             title={isBookmarked ? 'Remove Bookmark' : 'Save Bookmark'}
             aria-label={isBookmarked ? 'Remove Bookmark' : 'Save Bookmark'}
           >
-            <Bookmark className={`w-4 h-4 ${isBookmarked ? 'fill-violet-400' : ''}`} />
+            <Bookmark className={`w-4 h-4 ${isBookmarked ? 'fill-[#cfe0ff]' : ''}`} />
           </button>
 
           <button
             onClick={() => onSelect(opportunity)}
-            className="inline-flex items-center gap-1.5 px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-violet-600 hover:bg-violet-500 rounded-xl transition-all shadow-md shadow-violet-600/20"
+            className="inline-flex items-center gap-1.5 px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-[#3f63ed] hover:bg-[#3357d7] rounded-xl transition-all shadow-md shadow-[#3f63ed]/20"
           >
-            <span>Details</span>
+            <span>Official source</span>
             <ArrowUpRight className="w-4 h-4" />
           </button>
         </div>
@@ -162,7 +168,7 @@ export default function OpportunityCard({
 
   // Default: Grid Card view
   return (
-    <div className="group relative bg-slate-900/60 hover:bg-slate-900/90 border border-slate-800/80 hover:border-violet-500/50 rounded-2xl p-5 sm:p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-2xl hover:shadow-violet-500/10 flex flex-col justify-between backdrop-blur-sm">
+    <div className="group relative bg-[#101b2d]/85 hover:bg-[#121f33] border border-[#23314a] hover:border-[#3f63ed]/50 rounded-2xl p-5 sm:p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_22px_50px_rgba(15,23,42,0.14)] flex flex-col justify-between backdrop-blur-sm min-h-[360px]">
       <div>
         {/* Top bar: Category + Badges + Bookmark */}
         <div className="flex items-start justify-between gap-2 mb-4">
@@ -172,14 +178,20 @@ export default function OpportunityCard({
             </span>
 
             {opportunity.featured && (
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg text-[11px] font-bold bg-amber-950/70 border border-amber-700/60 text-amber-300">
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg text-[11px] font-bold bg-[#fff5df] border border-[#f7dcae] text-[#9a6200]">
                 <Sparkles className="w-3 h-3" /> Featured
               </span>
             )}
 
             {opportunity.verified && (
-              <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-lg text-[10px] font-semibold bg-emerald-950/60 border border-emerald-800/60 text-emerald-400" title="Verified by OpporSphere">
+              <span
+                className="group relative inline-flex items-center gap-1 px-1.5 py-0.5 rounded-lg text-[10px] font-semibold bg-[#eafaf2] border border-[#bfe8cf] text-[#1d7a56]"
+                title="Verified by OpporSphere: checked against official source, eligibility, and application details."
+              >
                 <CheckCircle2 className="w-3 h-3" /> Verified
+                <span className="pointer-events-none absolute left-1/2 top-full z-10 mt-2 -translate-x-1/2 whitespace-nowrap rounded-md bg-[#0f172a] px-2 py-1 text-[10px] text-slate-200 opacity-0 shadow-lg transition group-hover:opacity-100">
+                  Checked against official source
+                </span>
               </span>
             )}
           </div>
@@ -191,24 +203,24 @@ export default function OpportunityCard({
             }}
             className={`p-2 rounded-xl border transition-all ${
               isBookmarked
-                ? 'bg-violet-950 border-violet-500 text-violet-300 shadow-sm shadow-violet-500/20'
-                : 'bg-slate-800/70 border-slate-700/80 text-slate-400 hover:text-white hover:bg-slate-800'
+                ? 'bg-[#1d2d47] border-[#4f7acb] text-[#cfe0ff] shadow-sm shadow-[#3f63ed]/15'
+                : 'bg-[#121f33] border-[#22314d] text-slate-400 hover:text-white hover:bg-[#18253d]'
             }`}
             title={isBookmarked ? 'Remove Bookmark' : 'Save Bookmark'}
             aria-label={isBookmarked ? 'Remove Bookmark' : 'Save Bookmark'}
           >
-            <Bookmark className={`w-4 h-4 ${isBookmarked ? 'fill-violet-400 text-violet-400' : ''}`} />
+            <Bookmark className={`w-4 h-4 ${isBookmarked ? 'fill-[#cfe0ff] text-[#cfe0ff]' : ''}`} />
           </button>
         </div>
 
         {/* Organization Info */}
         <div className="flex items-center gap-3 mb-3">
-          <div className="w-10 h-10 rounded-xl bg-slate-800 border border-slate-700/80 overflow-hidden flex items-center justify-center flex-shrink-0 shadow-sm">
+          <div className="w-10 h-10 rounded-xl bg-white border border-slate-200 overflow-hidden flex items-center justify-center flex-shrink-0 shadow-sm">
             {opportunity.orgLogo ? (
               <img
                 src={opportunity.orgLogo}
                 alt={opportunity.organization}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-contain p-1.5"
                 loading="lazy"
               />
             ) : (
@@ -271,11 +283,7 @@ export default function OpportunityCard({
 
           {/* Deadline badge */}
           <div
-            className={`inline-flex items-center gap-1 text-[11px] font-medium px-2 py-0.5 rounded-md ${
-              isClosingSoon
-                ? 'bg-rose-950/80 text-rose-300 border border-rose-800/70 font-bold animate-pulse'
-                : 'text-slate-400 bg-slate-800/70'
-            }`}
+            className={`inline-flex items-center gap-1 text-[11px] font-medium px-2 py-0.5 rounded-md ${urgencyStyle}`}
           >
             <Clock className="w-3 h-3" />
             <span>{daysRemainingText}</span>
@@ -285,9 +293,9 @@ export default function OpportunityCard({
         {/* Bottom CTA Button */}
         <button
           onClick={() => onSelect(opportunity)}
-          className="w-full flex items-center justify-center gap-2 py-2 px-3 text-xs sm:text-sm font-semibold text-white bg-slate-800 group-hover:bg-violet-600 rounded-xl transition-all duration-200 group-hover:shadow-lg group-hover:shadow-violet-600/30"
+          className="w-full flex items-center justify-center gap-2 py-2 px-3 text-xs sm:text-sm font-semibold text-white bg-[#121f33] group-hover:bg-[#3f63ed] rounded-xl transition-all duration-200 group-hover:shadow-lg group-hover:shadow-[#3f63ed]/20"
         >
-          <span>View Details & Eligibility</span>
+          <span>View official source</span>
           <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
         </button>
       </div>
