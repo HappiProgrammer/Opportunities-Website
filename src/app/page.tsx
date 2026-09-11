@@ -32,6 +32,14 @@ import {
 
 const STORAGE_KEY_OPPORTUNITIES = 'opporsphere_catalog_v1';
 const STORAGE_KEY_BOOKMARKS = 'opporsphere_bookmarks_v1';
+const CATEGORY_ORDER: Exclude<OpportunityCategory, 'All'>[] = [
+  'Jobs',
+  'Internships',
+  'Scholarships',
+  'Grants',
+  'Hackathons',
+  'Fellowships'
+];
 
 export default function Home() {
   const [opportunities, setOpportunities] = useState<Opportunity[]>(INITIAL_OPPORTUNITIES);
@@ -270,6 +278,36 @@ export default function Home() {
     });
   }, [opportunities, filterState, bookmarkedIds]);
 
+  const groupedOpportunities = useMemo(
+    () =>
+      CATEGORY_ORDER.map((category) => ({
+        category,
+        opportunities: filteredOpportunities.filter((opportunity) => opportunity.category === category)
+      })).filter((group) => group.opportunities.length > 0),
+    [filteredOpportunities]
+  );
+
+  const renderOpportunityGrid = (items: Opportunity[]) => (
+    <div
+      className={
+        viewMode === 'grid'
+          ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7'
+          : 'flex flex-col space-y-3.5'
+      }
+    >
+      {items.map((opportunity) => (
+        <OpportunityCard
+          key={opportunity.id}
+          opportunity={opportunity}
+          isBookmarked={bookmarkedIds.includes(opportunity.id)}
+          onToggleBookmark={handleToggleBookmark}
+          onSelect={(opp) => setSelectedOpportunity(opp)}
+          viewMode={viewMode}
+        />
+      ))}
+    </div>
+  );
+
   return (
     <div className="min-h-screen flex flex-col bg-[#f6f8fc] text-[#182338] selection:bg-[#cbd9f8] selection:text-[#182338]">
       {/* Top Navigation */}
@@ -286,7 +324,6 @@ export default function Home() {
       <Hero
         searchQuery={filterState.searchQuery}
         onSearchChange={(query) => handleFilterUpdate({ searchQuery: query })}
-        onTagClick={(tag) => handleFilterUpdate({ searchQuery: tag })}
         totalOpportunities={opportunities.length}
       />
 
@@ -334,24 +371,27 @@ export default function Home() {
 
         {/* Feed Listing */}
         {filteredOpportunities.length > 0 ? (
-          <div
-            className={
-              viewMode === 'grid'
-                ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7'
-                : 'flex flex-col space-y-3.5'
-            }
-          >
-            {filteredOpportunities.map((opportunity) => (
-              <OpportunityCard
-                key={opportunity.id}
-                opportunity={opportunity}
-                isBookmarked={bookmarkedIds.includes(opportunity.id)}
-                onToggleBookmark={handleToggleBookmark}
-                onSelect={(opp) => setSelectedOpportunity(opp)}
-                viewMode={viewMode}
-              />
-            ))}
-          </div>
+          filterState.category === 'All' ? (
+            <div className="space-y-12">
+              {groupedOpportunities.map(({ category, opportunities: categoryOpportunities }) => (
+                <section key={category} aria-labelledby={`${category}-heading`}>
+                  <div className="flex items-end justify-between gap-4 mb-5 border-b border-slate-200 pb-3">
+                    <div>
+                      <h2 id={`${category}-heading`} className="font-display text-2xl sm:text-3xl font-bold text-[#182338]">
+                        {category}
+                      </h2>
+                      <p className="mt-1 text-sm text-slate-500">
+                        {categoryOpportunities.length} {categoryOpportunities.length === 1 ? 'opportunity' : 'opportunities'}
+                      </p>
+                    </div>
+                  </div>
+                  {renderOpportunityGrid(categoryOpportunities)}
+                </section>
+              ))}
+            </div>
+          ) : (
+            renderOpportunityGrid(filteredOpportunities)
+          )
         ) : (
           /* Empty State */
           <div className="text-center py-20 px-4 max-w-md mx-auto space-y-4">

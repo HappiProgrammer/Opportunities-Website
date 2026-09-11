@@ -1,23 +1,19 @@
 'use client';
 
 import React from 'react';
-import { Search, Sparkles, TrendingUp, DollarSign, Award, Clock, Globe2 } from 'lucide-react';
+import { Search, DollarSign, Award, Clock, Globe2 } from 'lucide-react';
 
 interface HeroProps {
   searchQuery: string;
   onSearchChange: (query: string) => void;
-  onTagClick: (tag: string) => void;
   totalOpportunities: number;
 }
 
 export default function Hero({
   searchQuery,
   onSearchChange,
-  onTagClick,
   totalOpportunities
 }: HeroProps) {
-  const trendingTags = ['Fully Funded', 'AI & DeepTech', 'Remote', 'GSoC 2026', 'Oxford', 'Equity Free', 'Undergraduate'];
-
   const stats = [
     { value: `${totalOpportunities}+`, label: 'Active listings', detail: 'Hand-verified', icon: Award, tone: 'text-[#9bb6ff]' },
     { value: '$12.4M+', label: 'Funding pool', detail: 'Grants & stipends', icon: DollarSign, tone: 'text-[#7ee1b2]' },
@@ -29,11 +25,6 @@ export default function Hero({
     <div className="relative overflow-hidden pt-10 pb-12 sm:pt-16 sm:pb-14 bg-[#f6f8fc]">
 
       <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <div className="inline-flex items-center gap-2 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full bg-[#edf3ff] border border-[#cbd9f8] text-[#3159c9] text-xs sm:text-sm font-medium mb-6 shadow-sm">
-          <Sparkles className="w-3.5 h-3.5 text-[#3159c9]" />
-          <span>Fall & Spring 2026-2027 Cohorts Now Accepting Applications</span>
-        </div>
-
         <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-[#182338] leading-[0.96] tracking-[-0.06em] mb-5">
           Find your next breakthrough{' '}
           <span className="text-[#3159c9]">
@@ -66,22 +57,6 @@ export default function Hero({
               )}
             </div>
           </div>
-        </div>
-
-        <div className="flex flex-wrap items-center justify-center gap-2 mb-8">
-          <span className="inline-flex items-center gap-1 text-xs font-semibold text-slate-500 mr-1">
-            <TrendingUp className="w-3.5 h-3.5 text-[#3159c9]" />
-            Trending:
-          </span>
-          {trendingTags.map((tag) => (
-            <button
-              key={tag}
-              onClick={() => onTagClick(tag)}
-              className="inline-flex items-center px-2.5 py-1 text-xs font-medium text-slate-600 hover:text-[#3159c9] bg-white hover:bg-[#edf3ff] border border-slate-200 rounded-lg transition-all"
-            >
-              #{tag}
-            </button>
-          ))}
         </div>
 
         <div className="max-w-4xl mx-auto rounded-2xl border border-slate-200 bg-white p-2 shadow-[0_16px_35px_rgba(52,72,106,0.08)]">
