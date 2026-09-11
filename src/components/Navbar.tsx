@@ -43,9 +43,6 @@ export default function Navbar({
                   Global
                 </span>
               </div>
-              <p className="text-[11px] text-slate-500 hidden md:block tracking-wide">
-                Jobs • Fellowships • Scholarships • Grants • Hackathons
-              </p>
             </div>
           </div>
 

@@ -3,17 +3,11 @@
 import React from 'react';
 import { Opportunity } from '../data/types';
 import {
-  Calendar,
   MapPin,
   DollarSign,
   Bookmark,
-  CheckCircle2,
-  Sparkles,
-  ExternalLink,
   Clock,
   ArrowUpRight,
-  Globe2,
-  GraduationCap
 } from 'lucide-react';
 
 interface OpportunityCardProps {
@@ -69,10 +63,10 @@ export default function OpportunityCard({
   }[opportunity.category] || 'bg-slate-800 text-slate-300 border-slate-700';
 
   const urgencyStyle = isClosingSoon
-    ? 'bg-[#2f1820] text-[#f7b9c0] border border-[#7a3342]'
+    ? 'bg-[#fff4f2] text-[#b42318] border border-[#f3c3bd]'
     : opportunity.deadline.toLowerCase() === 'rolling'
-      ? 'bg-[#112a2d] text-[#9fe4d4] border border-[#285a5a]'
-      : 'bg-[#121f33] text-slate-300 border border-[#22314d]';
+      ? 'bg-[#effaf5] text-[#18794e] border border-[#bfe8cf]'
+      : 'bg-[#f7f9fc] text-slate-600 border border-slate-200';
 
   if (viewMode === 'list') {
     return (
@@ -100,16 +94,6 @@ export default function OpportunityCard({
               <span className={`inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold border ${categoryColor}`}>
                 {opportunity.category}
               </span>
-              {opportunity.featured && (
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold bg-amber-950/70 border border-amber-700/60 text-amber-300">
-                  <Sparkles className="w-2.5 h-2.5" /> Featured
-                </span>
-              )}
-              {isClosingSoon && (
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold bg-rose-950/80 border border-rose-700/70 text-rose-300 animate-pulse">
-                  <Clock className="w-2.5 h-2.5" /> {daysRemainingText}
-                </span>
-              )}
             </div>
 
             <h3
@@ -143,10 +127,10 @@ export default function OpportunityCard({
         <div className="flex items-center gap-2 self-end md:self-center">
           <button
             onClick={() => onToggleBookmark(opportunity.id)}
-            className={`p-2.5 rounded-xl border transition-colors ${
+              className={`p-2.5 rounded-xl border transition-colors ${
               isBookmarked
-                ? 'bg-[#1d2d47] border-[#4f7acb] text-[#cfe0ff]'
-                : 'bg-[#121f33] border-[#22314d] text-slate-400 hover:text-white hover:bg-[#18253d]'
+                ? 'bg-[#edf3ff] border-[#9eb5eb] text-[#3159c9]'
+                : 'bg-white border-slate-200 text-slate-400 hover:text-[#3159c9] hover:bg-[#f7f9fc]'
             }`}
             title={isBookmarked ? 'Remove Bookmark' : 'Save Bookmark'}
             aria-label={isBookmarked ? 'Remove Bookmark' : 'Save Bookmark'}
@@ -177,23 +161,6 @@ export default function OpportunityCard({
               {opportunity.category}
             </span>
 
-            {opportunity.featured && (
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg text-[11px] font-bold bg-[#fff5df] border border-[#f7dcae] text-[#9a6200]">
-                <Sparkles className="w-3 h-3" /> Featured
-              </span>
-            )}
-
-            {opportunity.verified && (
-              <span
-                className="group relative inline-flex items-center gap-1 px-1.5 py-0.5 rounded-lg text-[10px] font-semibold bg-[#eafaf2] border border-[#bfe8cf] text-[#1d7a56]"
-                title="Verified by OpporSphere: checked against official source, eligibility, and application details."
-              >
-                <CheckCircle2 className="w-3 h-3" /> Verified
-                <span className="pointer-events-none absolute left-1/2 top-full z-10 mt-2 -translate-x-1/2 whitespace-nowrap rounded-md bg-[#0f172a] px-2 py-1 text-[10px] text-slate-200 opacity-0 shadow-lg transition group-hover:opacity-100">
-                  Checked against official source
-                </span>
-              </span>
-            )}
           </div>
 
           <button
@@ -203,8 +170,8 @@ export default function OpportunityCard({
             }}
             className={`p-2 rounded-xl border transition-all ${
               isBookmarked
-                ? 'bg-[#1d2d47] border-[#4f7acb] text-[#cfe0ff] shadow-sm shadow-[#3f63ed]/15'
-                : 'bg-[#121f33] border-[#22314d] text-slate-400 hover:text-white hover:bg-[#18253d]'
+                ? 'bg-[#edf3ff] border-[#9eb5eb] text-[#3159c9] shadow-sm'
+                : 'bg-white border-slate-200 text-slate-400 hover:text-[#3159c9] hover:bg-[#f7f9fc]'
             }`}
             title={isBookmarked ? 'Remove Bookmark' : 'Save Bookmark'}
             aria-label={isBookmarked ? 'Remove Bookmark' : 'Save Bookmark'}
@@ -249,31 +216,10 @@ export default function OpportunityCard({
           {opportunity.title}
         </h3>
 
-        {/* Description snippet */}
-        <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed mb-4">
-          {opportunity.description}
-        </p>
-
-        {/* Tags */}
-        <div className="flex flex-wrap gap-1.5 mb-5">
-          {opportunity.tags.slice(0, 3).map((tag) => (
-            <span
-              key={tag}
-              className="px-2 py-0.5 rounded-md text-[11px] font-medium bg-slate-800/80 text-slate-300 border border-slate-750"
-            >
-              #{tag}
-            </span>
-          ))}
-          {opportunity.tags.length > 3 && (
-            <span className="px-1.5 py-0.5 rounded-md text-[10px] text-slate-400 bg-slate-800/50">
-              +{opportunity.tags.length - 3}
-            </span>
-          )}
-        </div>
       </div>
 
       {/* Card Footer: Reward & Deadline & Action */}
-      <div className="pt-3.5 border-t border-slate-800/80 flex flex-col gap-3">
+      <div className="pt-5 border-t border-slate-200 flex flex-col gap-4">
         <div className="flex items-center justify-between text-xs">
           {/* Funding amount or stipend */}
           <div className="flex items-center gap-1 text-emerald-400 font-semibold truncate">

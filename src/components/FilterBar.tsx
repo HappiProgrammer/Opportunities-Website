@@ -4,17 +4,8 @@ import React from 'react';
 import {
   OpportunityCategory,
   FilterState,
-  EducationLevel,
-  DeadlineFilter,
-  FundingFilter
 } from '../data/types';
 import {
-  Briefcase,
-  GraduationCap,
-  Award,
-  Layers,
-  Code,
-  Users,
   Compass,
   LayoutGrid,
   List,
@@ -32,14 +23,14 @@ interface FilterBarProps {
   totalFilteredCount: number;
 }
 
-const CATEGORIES: { id: OpportunityCategory; label: string; icon: React.ReactNode }[] = [
-  { id: 'All', label: 'All Opportunities', icon: <Compass className="w-4 h-4" /> },
-  { id: 'Jobs', label: 'Jobs', icon: <Briefcase className="w-4 h-4" /> },
-  { id: 'Internships', label: 'Internships', icon: <Layers className="w-4 h-4" /> },
-  { id: 'Scholarships', label: 'Scholarships', icon: <GraduationCap className="w-4 h-4" /> },
-  { id: 'Grants', label: 'Grants', icon: <Award className="w-4 h-4" /> },
-  { id: 'Hackathons', label: 'Hackathons', icon: <Code className="w-4 h-4" /> },
-  { id: 'Fellowships', label: 'Fellowships', icon: <Users className="w-4 h-4" /> },
+const CATEGORIES: OpportunityCategory[] = [
+  'All',
+  'Jobs',
+  'Internships',
+  'Scholarships',
+  'Grants',
+  'Hackathons',
+  'Fellowships'
 ];
 
 export default function FilterBar({
@@ -76,33 +67,27 @@ export default function FilterBar({
     <div className="w-full mb-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="rounded-2xl border border-slate-200 bg-white p-3 shadow-[0_12px_30px_rgba(52,72,106,0.08)]">
-          <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none no-scrollbar">
-            {CATEGORIES.map((cat) => {
-              const isSelected = filterState.category === cat.id;
-              const count = categoryCounts[cat.id] || 0;
+          <div className="flex items-center justify-between gap-4 pb-2">
+            <label className="flex min-w-0 items-center gap-2 text-sm font-semibold text-[#182338]">
+              <Compass className="h-4 w-4 flex-shrink-0 text-[#3159c9]" />
+              <span className="hidden sm:inline">Browse opportunities</span>
+              <select
+                value={filterState.category}
+                onChange={(event) => onFilterChange({ category: event.target.value as OpportunityCategory })}
+                aria-label="Choose opportunity category"
+                className="min-w-0 bg-[#f7f9fc] border border-slate-200 text-slate-700 text-sm rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#cbd9f8]"
+              >
+                {CATEGORIES.map((category) => (
+                  <option key={category} value={category}>
+                    {category === 'All' ? `All Opportunities (${categoryCounts.All})` : `${category} (${categoryCounts[category]})`}
+                  </option>
+                ))}
+              </select>
+            </label>
 
-              return (
-                <button
-                  key={cat.id}
-                  onClick={() => onFilterChange({ category: cat.id })}
-                  className={`flex-shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 ${
-                    isSelected
-                      ? 'bg-[#3159c9] text-white shadow-md shadow-[#3159c9]/20 scale-[1.01]'
-                      : 'bg-[#f7f9fc] text-slate-600 hover:text-[#3159c9] hover:bg-[#edf3ff] border border-slate-200'
-                  }`}
-                >
-                  <span className={isSelected ? 'text-white' : 'text-[#3159c9]'}>{cat.icon}</span>
-                  <span>{cat.label}</span>
-                  <span
-                    className={`ml-1 px-1.5 py-0.5 rounded-full text-[11px] font-bold ${
-                      isSelected ? 'bg-white/15 text-white' : 'bg-[#e8eef7] text-slate-500'
-                    }`}
-                  >
-                    {count}
-                  </span>
-                </button>
-              );
-            })}
+            <span className="hidden sm:inline text-xs text-slate-500">
+              {categoryCounts[filterState.category]} available
+            </span>
           </div>
 
           <div className="mt-3 flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-200">
