@@ -209,20 +209,21 @@ export default function FilterBar({
                   title="Grid view"
                   aria-label="Grid view"
                 >
-                <LayoutGrid className="w-4 h-4" />
-              </button>
-              <button
-                onClick={() => onViewModeChange('list')}
-                className={`p-1.5 rounded-md transition-colors ${
-                  viewMode === 'list'
-                    ? 'bg-violet-600 text-white shadow-sm'
-                    : 'text-slate-400 hover:text-slate-200'
-                }`}
-                title="List view"
-                aria-label="List view"
-              >
-                <List className="w-4 h-4" />
-              </button>
+                  <LayoutGrid className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={() => onViewModeChange('list')}
+                  className={`p-1.5 rounded-md transition-colors ${
+                    viewMode === 'list'
+                      ? 'bg-violet-600 text-white shadow-sm'
+                      : 'text-slate-400 hover:text-slate-200'
+                  }`}
+                  title="List view"
+                  aria-label="List view"
+                >
+                  <List className="w-4 h-4" />
+                </button>
+              </div>
             </div>
           </div>
         </div>

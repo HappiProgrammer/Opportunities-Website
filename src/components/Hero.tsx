@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Search, Sparkles, TrendingUp, DollarSign, Award, Clock, ArrowRight } from 'lucide-react';
+import { Search, Sparkles, TrendingUp, DollarSign, Award, Clock, Globe2 } from 'lucide-react';
 
 interface HeroProps {
   searchQuery: string;

@@ -28,7 +28,8 @@ import {
   SlidersHorizontal,
   Bookmark,
   TrendingUp,
-  Award
+  Award,
+  ArrowUpRight
 } from 'lucide-react';
 
 const STORAGE_KEY_OPPORTUNITIES = 'opporsphere_catalog_v1';

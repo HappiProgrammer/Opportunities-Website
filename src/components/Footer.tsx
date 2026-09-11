@@ -18,8 +18,7 @@ export default function Footer({
   return (
     <footer className="w-full bg-[#0b1220] border-t border-[#23314a]/80 pt-16 pb-12 text-slate-400 text-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-[#23314a]/80">
-          {/* Col 1: Brand */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 pb-12 border-b border-[#23314a]/80">
           <div className="md:col-span-1 space-y-4">
             <div className="flex items-center gap-2.5">
               <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-tr from-[#4d68d7] via-[#6f8cff] to-[#9ad0ff] p-[1px]">
@@ -32,23 +31,13 @@ export default function Footer({
               </span>
             </div>
             <p className="text-xs text-slate-400 leading-relaxed">
-              The premier open directory connecting ambitious builders, students, researchers, and creators with world-class opportunities, scholarships, and funding.
+              A curated directory of scholarships, grants, fellowships, jobs, and internships for ambitious students and builders.
             </p>
-            <div className="flex items-center gap-3 pt-2 text-slate-400">
-              <span className="inline-flex items-center gap-1.5 text-xs text-slate-500">
-                <Globe className="w-4 h-4 text-cyan-400" /> Global Directory
-              </span>
-              <span className="text-slate-600">•</span>
-              <span className="inline-flex items-center gap-1.5 text-xs text-slate-500">
-                <Code2 className="w-4 h-4 text-violet-400" /> Open Web
-              </span>
-            </div>
           </div>
 
-          {/* Col 2: Categories */}
           <div>
             <h4 className="text-xs font-bold text-white uppercase tracking-wider mb-4">
-              Explore Categories
+              Explore
             </h4>
             <ul className="space-y-2.5 text-xs">
               {(['Jobs', 'Internships', 'Scholarships', 'Grants', 'Hackathons', 'Fellowships'] as OpportunityCategory[]).map((cat) => (
@@ -67,56 +56,29 @@ export default function Footer({
             </ul>
           </div>
 
-          {/* Col 3: Community & Organizers */}
-          <div>
-            <h4 className="text-xs font-bold text-white uppercase tracking-wider mb-4">
-              For Organizers
-            </h4>
-            <ul className="space-y-2.5 text-xs">
-              <li>
-                <button onClick={onOpenSubmit} className="hover:text-violet-300 transition-colors text-left">
-                  Submit an Opportunity
-                </button>
-              </li>
-              <li>
-                <button onClick={onOpenNewsletter} className="hover:text-violet-300 transition-colors text-left">
-                  Subscribe to Weekly Digest
-                </button>
-              </li>
-              <li>
-                <span className="text-slate-500">Recruiter Partnerships (Coming Soon)</span>
-              </li>
-              <li>
-                <span className="text-slate-500">Sponsorship Packages</span>
-              </li>
-            </ul>
-          </div>
-
-          {/* Col 4: Newsletter prompt */}
           <div className="space-y-3">
             <h4 className="text-xs font-bold text-white uppercase tracking-wider">
-              Stay Ahead of Deadlines
+              Get updates
             </h4>
             <p className="text-xs text-slate-400 leading-relaxed">
-              Get notified 48 hours before major grant, fellowship, and scholarship cutoff dates.
+              Weekly deadline alerts for the most relevant opportunities and funding rounds.
             </p>
             <button
               onClick={onOpenNewsletter}
-              className="w-full py-2.5 px-4 text-xs font-semibold text-white bg-slate-900 hover:bg-slate-850 border border-slate-800 hover:border-slate-700 rounded-xl transition-all shadow-sm flex items-center justify-center gap-2"
+              className="inline-flex items-center justify-center gap-2 text-xs font-semibold text-white bg-[#3f63ed] hover:bg-[#3357d7] rounded-xl px-4 py-2.5 transition-all"
             >
-              <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
-              <span>Configure Alerts</span>
+              <Sparkles className="w-3.5 h-3.5 text-white" />
+              <span>Subscribe</span>
             </button>
           </div>
         </div>
 
-        {/* Bottom copyright */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <div>
-            &copy; {new Date().getFullYear()} OpporSphere. All rights reserved. Handcrafted for global opportunity seekers.
+            &copy; {new Date().getFullYear()} OpporSphere.
           </div>
           <div className="flex items-center gap-1">
-            <span>Built with precision for world changers</span>
+            <span>Built for global opportunity seekers</span>
             <Heart className="w-3.5 h-3.5 text-rose-500 inline fill-rose-500/30 ml-1" />
           </div>
         </div>
