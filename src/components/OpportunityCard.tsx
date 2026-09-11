@@ -140,9 +140,9 @@ export default function OpportunityCard({
 
           <button
             onClick={() => onSelect(opportunity)}
-            className="inline-flex items-center gap-1.5 px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-[#3f63ed] hover:bg-[#3357d7] rounded-xl transition-all shadow-md shadow-[#3f63ed]/20"
+            className="inline-flex items-center gap-1.5 px-5 py-2.5 text-xs sm:text-sm font-semibold text-white bg-[#3159c9] hover:bg-[#2447a7] rounded-xl transition-all shadow-md shadow-[#3159c9]/20"
           >
-            <span>Official source</span>
+            <span>Apply</span>
             <ArrowUpRight className="w-4 h-4" />
           </button>
         </div>
@@ -152,7 +152,7 @@ export default function OpportunityCard({
 
   // Default: Grid Card view
   return (
-    <div className="group relative bg-white hover:bg-[#fbfcfe] border border-slate-200 hover:border-[#9eb5eb] rounded-2xl p-5 sm:p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_22px_50px_rgba(52,72,106,0.12)] flex flex-col justify-between min-h-[360px]">
+    <div className="group relative bg-white hover:bg-[#fbfcfe] border border-slate-200 hover:border-[#9eb5eb] rounded-3xl p-6 sm:p-7 transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_24px_55px_rgba(52,72,106,0.13)] flex flex-col justify-between min-h-[430px]">
       <div>
         {/* Top bar: Category + Badges + Bookmark */}
         <div className="flex items-start justify-between gap-2 mb-4">
@@ -181,8 +181,8 @@ export default function OpportunityCard({
         </div>
 
         {/* Organization Info */}
-        <div className="flex items-center gap-3 mb-3">
-          <div className="w-10 h-10 rounded-xl bg-white border border-slate-200 overflow-hidden flex items-center justify-center flex-shrink-0 shadow-sm">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-11 h-11 rounded-2xl bg-[#f7f9fc] border border-slate-200 overflow-hidden flex items-center justify-center flex-shrink-0 shadow-sm">
             {opportunity.orgLogo ? (
               <img
                 src={opportunity.orgLogo}
@@ -197,8 +197,8 @@ export default function OpportunityCard({
             )}
           </div>
           <div className="min-w-0">
-            <p className="text-xs font-medium text-slate-400 truncate">{opportunity.organization}</p>
-            <div className="flex items-center gap-1 text-[11px] text-slate-400">
+            <p className="text-sm font-medium text-slate-600 truncate">{opportunity.organization}</p>
+            <div className="flex items-center gap-1 text-xs text-slate-500">
               <MapPin className="w-3 h-3 text-slate-500 flex-shrink-0" />
               <span className="truncate">{opportunity.location}</span>
               {opportunity.isRemote && (
@@ -211,7 +211,7 @@ export default function OpportunityCard({
         {/* Opportunity Title */}
         <h3
           onClick={() => onSelect(opportunity)}
-          className="text-lg font-bold text-[#182338] group-hover:text-[#3159c9] cursor-pointer transition-colors line-clamp-2 mb-2 leading-snug"
+          className="text-xl font-bold text-[#182338] group-hover:text-[#3159c9] cursor-pointer transition-colors line-clamp-3 mb-2 leading-snug"
         >
           {opportunity.title}
         </h3>
@@ -222,7 +222,7 @@ export default function OpportunityCard({
       <div className="pt-5 border-t border-slate-200 flex flex-col gap-4">
         <div className="flex items-center justify-between text-xs">
           {/* Funding amount or stipend */}
-          <div className="flex items-center gap-1 text-emerald-400 font-semibold truncate">
+          <div className="flex items-center gap-1 text-[#159a6a] font-semibold truncate">
             <DollarSign className="w-3.5 h-3.5 flex-shrink-0" />
             <span className="truncate">{opportunity.fundingAmount || 'Unspecified Stipend'}</span>
           </div>
@@ -239,9 +239,9 @@ export default function OpportunityCard({
         {/* Bottom CTA Button */}
         <button
           onClick={() => onSelect(opportunity)}
-          className="w-full flex items-center justify-center gap-2 py-2 px-3 text-xs sm:text-sm font-semibold text-[#3159c9] bg-[#edf3ff] group-hover:bg-[#3159c9] group-hover:text-white rounded-xl transition-all duration-200"
+          className="w-full flex items-center justify-center gap-2 py-3 px-3 text-sm font-semibold text-white bg-[#3159c9] hover:bg-[#2447a7] rounded-xl transition-all duration-200 shadow-sm shadow-[#3159c9]/20"
         >
-          <span>View official source</span>
+          <span>Apply</span>
           <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
         </button>
       </div>
