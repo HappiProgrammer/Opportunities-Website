@@ -67,27 +67,37 @@ export default function FilterBar({
     <div className="w-full mb-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="rounded-2xl border border-slate-200 bg-white p-3 shadow-[0_12px_30px_rgba(52,72,106,0.08)]">
-          <div className="flex items-center justify-between gap-4 pb-2">
-            <label className="flex min-w-0 items-center gap-2 text-sm font-semibold text-[#182338]">
-              <Compass className="h-4 w-4 flex-shrink-0 text-[#3159c9]" />
-              <span className="hidden sm:inline">Browse opportunities</span>
-              <select
-                value={filterState.category}
-                onChange={(event) => onFilterChange({ category: event.target.value as OpportunityCategory })}
-                aria-label="Choose opportunity category"
-                className="min-w-0 bg-[#f7f9fc] border border-slate-200 text-slate-700 text-sm rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#cbd9f8]"
-              >
-                {CATEGORIES.map((category) => (
-                  <option key={category} value={category}>
-                    {category === 'All' ? `All Opportunities (${categoryCounts.All})` : `${category} (${categoryCounts[category]})`}
-                  </option>
-                ))}
-              </select>
-            </label>
+          <div className="flex items-center gap-2 pb-2">
+            <Compass className="h-4 w-4 flex-shrink-0 text-[#3159c9]" />
+            <span className="text-sm font-semibold text-[#182338]">Browse opportunities</span>
+          </div>
 
-            <span className="hidden sm:inline text-xs text-slate-500">
-              {categoryCounts[filterState.category]} available
-            </span>
+          <div
+            role="tablist"
+            aria-label="Opportunity categories"
+            className="flex gap-1.5 overflow-x-auto border-b border-slate-200 pb-1 scrollbar-none no-scrollbar"
+          >
+            {CATEGORIES.map((category) => {
+              const isSelected = filterState.category === category;
+              return (
+                <button
+                  key={category}
+                  role="tab"
+                  aria-selected={isSelected}
+                  onClick={() => onFilterChange({ category })}
+                  className={`flex-shrink-0 border-b-2 px-3 py-2 text-xs sm:text-sm font-semibold transition-colors ${
+                    isSelected
+                      ? 'border-[#3159c9] text-[#3159c9]'
+                      : 'border-transparent text-slate-500 hover:border-[#cbd9f8] hover:text-[#3159c9]'
+                  }`}
+                >
+                  {category === 'All' ? 'All Opportunities' : category}
+                  <span className={`ml-1.5 text-[11px] ${isSelected ? 'text-[#3159c9]' : 'text-slate-400'}`}>
+                    {categoryCounts[category]}
+                  </span>
+                </button>
+              );
+            })}
           </div>
 
           <div className="mt-3 flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-200">
