@@ -7,6 +7,12 @@ import {
 } from '../data/types';
 import {
   Compass,
+  BriefcaseBusiness,
+  GraduationCap,
+  Gift,
+  Code2,
+  UsersRound,
+  Layers3,
   LayoutGrid,
   List,
   RotateCcw,
@@ -23,14 +29,19 @@ interface FilterBarProps {
   totalFilteredCount: number;
 }
 
-const CATEGORIES: OpportunityCategory[] = [
-  'All',
-  'Jobs',
-  'Internships',
-  'Scholarships',
-  'Grants',
-  'Hackathons',
-  'Fellowships'
+const CATEGORIES: {
+  id: OpportunityCategory;
+  label: string;
+  description: string;
+  icon: React.ComponentType<{ className?: string }>;
+}[] = [
+  { id: 'All', label: 'All opportunities', description: 'Browse every verified opportunity in one place.', icon: Compass },
+  { id: 'Jobs', label: 'Jobs', description: 'Roles from organizations hiring ambitious people.', icon: BriefcaseBusiness },
+  { id: 'Internships', label: 'Internships', description: 'Practical experience in technology, research, and design.', icon: Layers3 },
+  { id: 'Scholarships', label: 'Scholarships', description: 'Funded study opportunities and academic support.', icon: GraduationCap },
+  { id: 'Grants', label: 'Grants', description: 'Funding for ideas, research, and growing projects.', icon: Gift },
+  { id: 'Hackathons', label: 'Hackathons', description: 'Build, compete, and connect with new communities.', icon: Code2 },
+  { id: 'Fellowships', label: 'Fellowships', description: 'Selective programs for future leaders and builders.', icon: UsersRound }
 ];
 
 export default function FilterBar({
@@ -66,41 +77,46 @@ export default function FilterBar({
   return (
     <div className="w-full mb-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="rounded-2xl border border-slate-200 bg-white p-3 shadow-[0_12px_30px_rgba(52,72,106,0.08)]">
-          <div className="flex items-center gap-2 pb-2">
-            <Compass className="h-4 w-4 flex-shrink-0 text-[#3159c9]" />
-            <span className="text-sm font-semibold text-[#182338]">Browse opportunities</span>
+        <div>
+          <div className="mb-6">
+            <h2 className="font-display text-3xl sm:text-4xl font-bold text-[#182338]">Explore by category</h2>
+            <p className="mt-2 text-base sm:text-lg text-slate-500">Choose a category to see what is available right now.</p>
           </div>
 
           <div
             role="tablist"
             aria-label="Opportunity categories"
-            className="flex gap-1.5 overflow-x-auto border-b border-slate-200 pb-1 scrollbar-none no-scrollbar"
+            className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
           >
-            {CATEGORIES.map((category) => {
-              const isSelected = filterState.category === category;
+            {CATEGORIES.slice(1).map((category) => {
+              const isSelected = filterState.category === category.id;
+              const Icon = category.icon;
               return (
                 <button
-                  key={category}
+                  key={category.id}
                   role="tab"
                   aria-selected={isSelected}
-                  onClick={() => onFilterChange({ category })}
-                  className={`flex-shrink-0 border-b-2 px-3 py-2 text-xs sm:text-sm font-semibold transition-colors ${
+                  onClick={() => onFilterChange({ category: category.id })}
+                  className={`group flex min-h-[166px] items-start gap-5 rounded-2xl border bg-white p-6 text-left transition-all hover:-translate-y-0.5 hover:shadow-[0_16px_35px_rgba(52,72,106,0.1)] ${
                     isSelected
-                      ? 'border-[#3159c9] text-[#3159c9]'
-                      : 'border-transparent text-slate-500 hover:border-[#cbd9f8] hover:text-[#3159c9]'
+                      ? 'border-[#9eb5eb] ring-2 ring-[#edf3ff]'
+                      : 'border-slate-200 hover:border-[#cbd9f8]'
                   }`}
                 >
-                  {category === 'All' ? 'All Opportunities' : category}
-                  <span className={`ml-1.5 text-[11px] ${isSelected ? 'text-[#3159c9]' : 'text-slate-400'}`}>
-                    {categoryCounts[category]}
+                  <span className={`flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl ${isSelected ? 'bg-[#3159c9] text-white' : 'bg-[#edf3ff] text-[#3159c9]'}`}>
+                    <Icon className="h-7 w-7" />
+                  </span>
+                  <span className="min-w-0">
+                    <span className="block text-lg font-bold text-[#182338] group-hover:text-[#3159c9]">{category.label}</span>
+                    <span className="mt-2 block text-sm leading-relaxed text-slate-500">{category.description}</span>
+                    <span className="mt-3 block text-sm font-semibold text-[#3159c9]">{categoryCounts[category.id]} open</span>
                   </span>
                 </button>
               );
             })}
           </div>
 
-          <div className="mt-3 flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-200">
+          <div className="mt-8 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-[0_12px_30px_rgba(52,72,106,0.06)]">
             <div className="flex flex-wrap items-center gap-2.5">
               <button
                 onClick={() => onFilterChange({ isRemoteOnly: !filterState.isRemoteOnly })}
